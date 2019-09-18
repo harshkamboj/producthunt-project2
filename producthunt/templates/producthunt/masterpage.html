@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Product Hunt</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+<!--    <script src="https://kit.fontawesome.com/yourcode.js"></script>-->
+
+    <style>
+        a:link {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+             color: blue;
+        }
+
+      #topheader .navbar-nav li > a {
+	text-transform: capitalize;
+	color: #ffc107;
+	transition: background-color .2s, color .2s;
+}
+
+#topheader .navbar-nav li > a:hover{
+			color: #fff;
+	}
+
+    </style>
+<script>
+    $(document).ready(function(){
+    $('.nav li').click(function(event){
+         $('.active').removeClass('active');
+        $(this).addClass('active');
+        event.preventDefault();
+    });
+});
+</script>
+</head>
+
+<body>
+<header>
+    <div id="topheader">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+            <div class="container" role="tablist">
+                <a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'logo.png' %}" height="30"
+                                                                     width="30">
+                    Product Hunt</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                    <ul class="navbar-nav mr-auto order-1">
+                        <li class="nav-item active">
+                            <a id="nav-home-tab" class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Trending</a>
+
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="#">Makers</a>
+
+                    </ul>
+                    <ul class="navbar-nav navbar-dark  d-none d-lg-flex ml-2 order-3">
+                        {% if user.is_authenticated %}
+                        <li nav-item >
+                            <a class="nav-link " href="{% url 'create' %}"><i class="fa fa-plus"></i></a>
+                        </li >
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                        </li>
+                        <form id="logout" method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                        {% else %}
+                        <li class="nav-item">
+                            <a id="nav-signin-tab" class="nav-link "  href="{% url 'login' %}">Signin</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a id="nav-signup-tab" class="nav-link btn btn-primary"  href="{% url 'signup' %}"><button type="button" class="btn btn-danger btn-sm">Signup</button></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <br>
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<footer class="footer-distributed mt-4">
+
+    <div class="footer-left">
+
+        <h3><a href="{% url 'home' %}" class="navbar-brand"><img src="{% static 'logo.png' %}" height="30" width="30">
+            Product Hunt</a></h3>
+
+        <p class="footer-links">
+            <a href="#">Home</a>
+            ·
+            <a href="#">About</a>
+            .
+            <a href="#">Trending</a>
+            ·
+            <a href="#">Makers</a>
+            ·
+            <a href="#">FAQ</a>
+        </p>
+
+        <p class="footer-company-name">Product Hunt &copy; 2019. All Rights Reserved.</p>
+    </div>
+
+    <div class="footer-center">
+
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>36-Darbi, Sirsa</span> Haryana, India</p>
+        </div>
+
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>+91 78388-24855</p>
+        </div>
+
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="mailto:hkdarbi91@gmail.com">support@ProductHunt.com</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-right">
+
+        <p class="footer-company-about">
+            <span>About the company</span>
+            Product Hunt surfaces the best new products, every day. It's a place for product-loving enthusiasts to share
+            and geek out about the latest mobile apps, websites, hardware projects, and tech creations. </p>
+
+        <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<style>
+            .footer-distributed{
+	background-color: 	#6c757d	;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+
+	padding: 55px 50px;
+	margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Cookie', cursive;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  #5383d3;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #5383d3;
+	text-decoration: none;;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+	.footer-distributed{
+		font: bold 14px sans-serif;
+	}
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+</style>
+
+</body>
+</html>

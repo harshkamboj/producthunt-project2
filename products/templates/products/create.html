@@ -1,0 +1,52 @@
+{% extends 'masterpage.html' %}
+
+{% block content %}
+
+
+<div class="col-md-5">
+ 				 		<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+                            	{% csrf_token %}
+						<fieldset>
+							<p class="text-uppercase">Add your Product: </p>
+                            {{error}}
+							<div class="form-group">
+                                <input type="text" name="title" id="title" class="form-control input-lg" placeholder="Title">
+							</div>
+							<div class="form-group">
+                                <textarea type="text" name="body" id="body" class="form-control input-lg" placeholder="Write about product here..."></textarea>
+                            </div>
+                                <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="icon1">Icon</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="icon" id="icon2" aria-describedby="icon1">
+                                <label class="custom-file-label" for="icon2">Choose Icon</label>
+                              </div>
+                            </div>
+                                <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="image1">Image</span>
+                              </div>
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="image" id="image2" aria-describedby="image1">
+                                <label class="custom-file-label" for="image2">Choose Image</label>
+                              </div>
+                            </div>
+                            <div class="form-group">
+								<input type="text" name="url" id="url" class="form-control input-lg" placeholder="url">
+							</div>
+							<div>
+								<input type="submit" class="btn btn-success" value="Upload">
+							</div>
+
+ 						</fieldset>
+				</form>
+				</div>
+
+    <script type="text/javascript">
+    $('.custom-file input').change(function (e) {
+        $(this).next('.custom-file-label').html(e.target.files[0].name);
+    });
+    </script>
+{% endblock %}

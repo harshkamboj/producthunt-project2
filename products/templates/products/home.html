@@ -1,0 +1,29 @@
+{% extends 'masterpage.html' %}
+
+{% block content %}
+{% for product in products.all %}
+<div class="card text-white  mb-1 border-primary" style="background-color:#A9A9A9;">
+  <div class="card-body">
+  <div class="row pt-3">
+    <div class="col-2" >
+        <a style="text-decoration: none" href="{% url 'details' product.id %}" ><img src="{{product.icon.url}}" class="img-fluid" height="100" width="100" ></a>
+    </div>
+    <div class="col-6">
+        <a href="{% url 'details' product.id %}"><h1>{{product.title}}</h1></a>
+
+        <a><p onclick = "window.location='{% url 'details' product.id %}'" style="cursor:pointer">{{product.summary}}</p></a>
+    </div>
+    <div class="col-4">
+        <a href="javascript:{document.getElementById('upvote{{product.id}}').submit()}"><button class="btn btn-success btn-md btn-block"><i class="fa fa-caret-up" style="font-size:24px"></i> Upvote {{product.votes_total}}</button></a>
+    </div>
+</div>
+        </div>
+</div>
+<form id="upvote{{product.id}}" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token %}
+    <input type="hidden"/>
+</form>
+{% endfor %}
+
+
+{% endblock %}

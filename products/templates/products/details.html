@@ -1,0 +1,43 @@
+{% extends 'masterpage.html' %}
+
+{% block content %}
+
+<div class="card text-white" style="background-color:#A9A9A9">
+  <div class="card-body">
+<div class="row">
+    <div class="col-4">
+        <img src="{{product.icon.url}}" class="img-fluid" height="100" width="100">
+    </div>
+    <div class="col-8">
+        <a href="{{product.url}}"><h1>{{product.title}}</h1></a>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-8">
+        <img src="{{product.image.url}}" class="img-fluid img-thumbnail" height="500" width="500">
+    </div>
+    <div class="col-4">
+        <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-success btn-md btn-block"><i class="fa fa-caret-up" style="font-size:24px"></i> Upvote {{product.votes_total}}</button></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <h4><i class="fa fa-search"></i> {{product.hunter.username}}</h4>
+    </div>
+    <div class="col-4 text-right">
+        <h4> <i class="fa fa-clock-o" ></i> {{product.pub_date1}}</h4>
+    </div>
+</div>
+<div class="row">
+   <div class="col-8">
+        <p>{{product.body}}</p>
+   </div>
+</div>
+  </div>
+</div>
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token %}
+    <input type="hidden"/>
+</form>
+{% endblock %}
